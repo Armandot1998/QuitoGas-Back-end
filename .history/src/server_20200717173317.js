@@ -1,10 +1,6 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 
-
-//cors
-app.use(cors());
 // midelwares
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
