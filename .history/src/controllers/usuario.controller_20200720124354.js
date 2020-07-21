@@ -6,11 +6,10 @@ const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
 const getUsers = async(req, res) => {
+    let db = pool()
     let usuarios = req.usuarios
-    usuarios = await pool.query('select * from usuario');
-    res.status(200).json({
-        usuarios: usuarios.rows
-    });
+    usuarios = await db.query('select * from usuario');
+    res.status(200).json(usuarios.rows);
 };
 
 const getUserById = async (req, res) => {
@@ -20,13 +19,12 @@ const getUserById = async (req, res) => {
 };
 
 const createUser = async(req, res) => {
-    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body.usuario;
-     
-     usuario = await pool.query('insert into usuario ( id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario) values ($1, $2, $3, $4, $5, $6, $7, $8)',
-     [ id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario ]);
-     res.status(200).json({
-        menssage: 'Se ha creado un usuario'
-    });
+    const { rol, nombres, apellidos, cedula, telefono, direccion, correo, clave  } = req.body;
+    const response = await pool.query('insert into usuario ( id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario) values ($1, $2, $3, $4, $5, $6, $7, $8)',
+     [ rol, nombres, apellidos, cedula, telefono, direccion, correo, clave ]);
+    res.json({
+        menssage: 'Usuario Resgistrado'
+    })
 };
 
 const updateUser = async (req, res) => {
