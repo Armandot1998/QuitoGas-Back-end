@@ -30,7 +30,8 @@ const updateUser = async (req, res) => {
         nombres, apellidos, id
     ])
     res.json({
-        menssage: 'Usuario Actualizado'
+        menssage: 'Usuario Actualizado',
+        auth: true
     })
 };
 
