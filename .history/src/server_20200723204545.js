@@ -12,7 +12,6 @@ app.use(express.urlencoded({extended: false}))
 // Definiendo rutas
 app.use(require('./routes/usuarioRoute'));
 app.use(require('./routes/sucursalRoute'));
-app.use(require('./routes/productoRoute'))
 
 app.listen(3000);
 console.log('server on port 3000');
