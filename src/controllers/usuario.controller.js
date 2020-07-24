@@ -1,27 +1,25 @@
 ;
 'use strict'
+
 const pool = require('../config/db')
 const jwt = require('jsonwebtoken')
 
 const config = require('../config/config')
 
 const getUsers = async(req, res) => {
-    let usuarios = req.usuarios
+    let usuarios = req.usuarios;
     usuarios = await pool.query('select * from usuario');
-    res.status(200).json({
-        usuarios: usuarios.rows
-    });
+    res.json(usuarios.rows);
 };
 
 const getUserById = async (req, res) => {
-    const id = req.params;
+    const id = req.params.id;
     const usuario = await pool.query('select * from usuario where id_usuario = $1', [id]);
-    res.status(200).json({
-        menssage : 'ok'});
+    res.status(200).json(usuario.rows);
 };
 
 const createUser = async(req, res) => {
-    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body.usuario;
+    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body;
      
      usuario = await pool.query('insert into usuario ( id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario) values ($1, $2, $3, $4, $5, $6, $7, $8)',
      [ id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario ]);
@@ -31,8 +29,8 @@ const createUser = async(req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    const id = req.params;
-    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body.usuario;
+    const id = req.params.id;
+    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body;
     usuario = await pool.query('update usuario set id_rol = $1, nombre_usuario = $2, apellido_usuario = $3, cedula_usuario = $4, telefono_usuario = $5, direccion_usuario = $6, correo_usuario = $7, password_usuario = $8 where id_usuario = $9', [
         id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario, id
     ]);
@@ -77,7 +75,6 @@ const signinUser = async (req, res, next) => {
         });
     }
 };
-
 
 module.exports = {
     getUsers, createUser,
