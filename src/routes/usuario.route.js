@@ -12,10 +12,8 @@ const { getUsers, createUser,
 router.get('/users', getUsers);
 router.get('/users/:id', getUserById);
 router.get('/profile',  verifyToken, infoUser );
-// router.get('/out',  verifyToken, outUser );
 router.post('/users', createUser);
 router.put('/users/:id', updateUser);
-
 router.post('/signin', signinUser);
 
 

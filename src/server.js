@@ -5,8 +5,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
-// Definiendo rutas
-app.use(require('./routes/usuarioRoute'));
+// Definiendo rutas del usuario
+app.use(require('./routes/usuario.route'));
+
+// Definiendo rutas del producto
+app.use(require('./routes/product.route'));
 
 app.listen(3000);
 console.log('server on port 3000');
