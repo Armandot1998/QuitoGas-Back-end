@@ -9,7 +9,9 @@ const config = require('../config/config')
 const getUsers = async(req, res) => {
     let usuarios = req.usuarios;
     usuarios = await pool.query('select * from usuario');
-    res.json(usuarios.rows);
+    res.status(200).json({
+        usuarios: usuarios.rows
+    });
 };
 
 const getUserById = async (req, res) => {
@@ -19,7 +21,7 @@ const getUserById = async (req, res) => {
 };
 
 const createUser = async(req, res) => {
-    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body;
+    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body.usuario;
      
      usuario = await pool.query('insert into usuario ( id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario) values ($1, $2, $3, $4, $5, $6, $7, $8)',
      [ id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario ]);
