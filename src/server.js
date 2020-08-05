@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended: false}))
 
 // Definiendo rutas
 
-app.use(require('./routes/usuarioRoute'));
+app.use(require('./routes/usuario.route'));
 app.use(require('./routes/sucursalRoute'));
 app.use(require('./routes/productoRoute'))
 
