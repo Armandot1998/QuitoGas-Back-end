@@ -9,9 +9,7 @@ const config = require('../config/config')
 const getUsers = async(req, res) => {
     let usuarios = req.usuarios;
     usuarios = await pool.query('select * from usuario');
-    res.status(200).json({
-        usuarios: usuarios.rows
-    });
+    res.json(usuarios.rows);
 };
 
 const getUserById = async (req, res) => {
@@ -31,10 +29,10 @@ const createUser = async(req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    
-    const { id_usuario, id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body.usuario;
+    const id = req.params.id;
+    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario  } = req.body;
     usuario = await pool.query('update usuario set id_rol = $1, nombre_usuario = $2, apellido_usuario = $3, cedula_usuario = $4, telefono_usuario = $5, direccion_usuario = $6, correo_usuario = $7, password_usuario = $8 where id_usuario = $9', [
-        id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario, id_usuario
+        id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario, id
     ]);
     res.status(200).json({
         menssage: 'Usuario Actualizado',

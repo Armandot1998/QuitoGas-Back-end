@@ -13,8 +13,8 @@ router.get('/users', getUsers);
 router.get('/users/:id', getUserById);
 router.get('/profile',  verifyToken, infoUser );
 // router.get('/out',  verifyToken, outUser );
-router.post('/user', createUser);
-router.put('/user', updateUser);
+router.post('/users', createUser);
+router.put('/users/:id', updateUser);
 
 router.post('/signin', signinUser);
 

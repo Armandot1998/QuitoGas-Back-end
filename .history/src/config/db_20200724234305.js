@@ -4,7 +4,7 @@ const pool = new Pool({
     hots: 'localhost',
     user: 'postgres',
     password: '1234',
-    database: 'gas', 
+    database: 'QuitoGas', 
     port: '5432'
 })
 
