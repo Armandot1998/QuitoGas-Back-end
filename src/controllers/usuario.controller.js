@@ -53,7 +53,7 @@ const infoUser = async (req, res, next) => {
 // Login 
 
 const signinUser = async (req, res, next) => {
-    const {correo_usuario, password_usuario} = req.body.usuario;
+    const {correo_usuario, password_usuario} = req.body.Login;
     const userEx = await pool.query("select * from usuario where correo_usuario = $1", [correo_usuario]);
     if (userEx.rowCount > 0) {
         const response = await pool.query("select * from usuario where correo_usuario = $1 and password_usuario = $2", [correo_usuario, password_usuario]);
