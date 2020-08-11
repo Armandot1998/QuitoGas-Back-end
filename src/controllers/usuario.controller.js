@@ -61,6 +61,7 @@ const signinUser = async (req, res, next) => {
             const token = jwt.sign({id: correo_usuario}, config.secret,{
                 expiresIn: 60 * 60 })
             res.json({
+                Login : response.rows,
                 auth: true, 
                 menssage: 'usuario logeado',
                 token: token
