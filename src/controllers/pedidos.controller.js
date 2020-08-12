@@ -17,10 +17,10 @@ const getPedidos = async(req, res) => {
 
 const createPedido = async(req, res) => {
 
-    const { id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido, total} = req.body;
+    const { id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido} = req.body;
 
-     usuario = await pool.query("insert into pedidos (id_producto, id_usuario, id_sucursal, cantidad_pedido, estado_pedido, fecha_pedido, fecha_entrega_pedido, total) values ($1, $2, $3, $4, 'Pendiente', $5, $6, $7)",
-     [ id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido, total]);
+     usuario = await pool.query("insert into pedidos (id_producto, id_usuario, id_sucursal, cantidad_pedido, estado_pedido, fecha_pedido, fecha_entrega_pedido) values ($1, $2, $3, $4, 'Pendiente', $5, $6)",
+     [ id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido]);
      res.status(200).json({
         menssage: 'Se ha creado el pedido'
     });
