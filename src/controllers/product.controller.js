@@ -29,8 +29,8 @@ const createProduct = async(req, res) => {
 const updateProduct = async (req, res) => {
     const id = req.params.id;
     const { nombre, precio } = req.body;
-    producto = await pool.query('update producto set nombre_producto = $1, precio_producto = $2', 
-    [nombre, precio ]);
+    producto = await pool.query('update producto set nombre_producto = $1, precio_producto = $2 where id_producto = $3', 
+    [nombre, precio, id ]);
     res.status(200).json({
         menssage: 'Producto actualizado exitosamente!'
     })
