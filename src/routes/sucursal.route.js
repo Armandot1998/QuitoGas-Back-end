@@ -14,7 +14,7 @@ const router = Router()
 router.get('/sucursales', getSucursal)
 router.get('/sucursal/:id', getSucursalById)
 router.post('/sucursal', createSucursal)
-router.put('/sucursal/:id', updateSucursal)
+router.put('/sucursal', updateSucursal)
 router.get('/UsuSucursales', getListaUsuariosSucursal)
 
 
