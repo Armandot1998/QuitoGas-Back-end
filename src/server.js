@@ -15,6 +15,7 @@ app.use(require('./routes/usuario.route'));
 app.use(require('./routes/sucursal.route'));
 app.use(require('./routes/producto.route'));
 app.use(require('./routes/pedido.route'));
+app.use(require('./routes/role.route'));
 
 app.listen(3000);
 console.log('server on port 3000');

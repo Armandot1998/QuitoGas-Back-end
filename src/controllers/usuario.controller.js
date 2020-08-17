@@ -8,7 +8,9 @@ const config = require('../config/config')
 
 const getUsers = async(req, res) => {
     let usuarios = req.usuarios;
-    usuarios = await pool.query('select * from usuario');
+    usuarios = await pool.query(`select usuario.id_usuario, rol.nombre, usuario.nombre_usuario,usuario.apellido_usuario, usuario.cedula_usuario, usuario.telefono_usuario,
+    usuario.direccion_usuario, usuario.correo_usuario from usuario
+    inner join rol on rol.id_rol = usuario.id_rol`);
     res.status(200).json({
         usuarios: usuarios.rows
     });
