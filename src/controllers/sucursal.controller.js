@@ -42,9 +42,9 @@ const createSucursal = async(req, res) => {
 
 const updateSucursal = async (req, res) => {
 
-    const { id_sucursal,nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal } = req.body.sucursal;
-    sucursal = await pool.query('update sucursal set nombre_sucursal = $1, telefono_sucursal = $2, direccion_sucursal = $3, correo_sucursal = $4 where id_sucursal = $5', [
-        nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal,id_sucursal
+    const { id_sucursal,id_usuario, id_producto,nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal,stock_sucursal } = req.body.sucursal;
+    sucursal = await pool.query('update sucursal set id_usuario = $1,id_producto =$2,nombre_sucursal = $3, telefono_sucursal = $4, direccion_sucursal = $5, correo_sucursal = $6, stock_sucursal =$7 where id_sucursal = $8', [
+        id_usuario,id_producto,nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal,stock_sucursal,id_sucursal
     ]);
     res.status(200).json({
         menssage: 'Sucursal Actualizada',
