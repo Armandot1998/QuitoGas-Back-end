@@ -4,10 +4,21 @@ const pool = require('../config/db')
 
 /* Consulta para traer los pedidos que tiene una sucursal --> enviar al id_sucursal */
 
-const getAllPedidos = async(req, res) => {
+const getAllPedidosPen = async(req, res) => {
     const id = req.params.id;
     let pedidos = req.pedidos;
-    pedidos = await pool.query('select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1', [id]);
+    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and estado_pedido = 'Pendiente'", [id]);
+    res.status(200).json({
+        productos: pedidos.rows
+    });
+};
+
+/* Consulta para traer los pedidos pendientes que tiene una sucursal --> enviar al id_sucursal */
+
+const getAllPedidosVen = async(req, res) => {
+    const id = req.params.id;
+    let pedidos = req.pedidos;
+    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and estado_pedido = 'Vendido'", [id]);
     res.status(200).json({
         productos: pedidos.rows
     });
@@ -59,6 +70,7 @@ const createPedido = async(req, res) => {
      usuario = await pool.query("insert into pedidos (id_producto, id_usuario, id_sucursal, cantidad_pedido, estado_pedido, fecha_pedido, fecha_entrega_pedido) values ($1, $2, $3, $4, 'Pendiente', $5, $6)",
      [ id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido]);
      res.status(200).json({
+        success: true,
         menssage: 'Se ha creado el pedido'
     });
 };
@@ -74,7 +86,8 @@ const updatePedidoEst = async (req, res) => {
 };
 
 module.exports = {
-    getAllPedidos,
+    getAllPedidosPen,
+    getAllPedidosVen,
     getUserPedidos,
     getUserPedidosPen,
     getUserPedidosVen,

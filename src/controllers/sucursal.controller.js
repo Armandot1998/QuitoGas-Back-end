@@ -5,7 +5,7 @@ const pool = require('../config/db')
 const getSucursal = async(req, res) => {
     let sucursales = req.sucursales
     sucursales = await pool.query(`select usuario.id_usuario, usuario.nombre_usuario,
-    usuario.apellido_usuario,producto.nombre_producto,producto.precio_producto, usuario.cedula_usuario, usuario.telefono_usuario,
+    usuario.apellido_usuario,producto.nombre_producto,producto.id_producto,producto.precio_producto, usuario.cedula_usuario, usuario.telefono_usuario,
     usuario.direccion_usuario, usuario.correo_usuario, sucursal.id_sucursal,
     sucursal.nombre_sucursal, sucursal.direccion_sucursal, sucursal.telefono_sucursal,
     sucursal.correo_sucursal, sucursal.stock_sucursal 

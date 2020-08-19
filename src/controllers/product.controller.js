@@ -22,6 +22,7 @@ const createProduct = async(req, res) => {
      producto = await pool.query('insert into producto ( nombre_producto, precio_producto, estado_producto) values ($1, $2, $3)',
      [ nombre, precio, estado ]);
      res.status(200).json({
+        success: true,
         menssage: 'Producto creado exitosamente!'
     });
 };
