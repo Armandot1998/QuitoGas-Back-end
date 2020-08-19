@@ -2,7 +2,7 @@
 'use strict'
 const pool = require('../config/db')
 
-/* Consulta que devuelve el historial de pedidos realizados por el usuario */
+/* Consulta que devuelve el historial de pedidos pendientes realizados por el usuario */
 
 const getAllPedidosUserPen= async(req, res) => {
     const id = req.params.id;
@@ -13,6 +13,16 @@ const getAllPedidosUserPen= async(req, res) => {
     });
 };
 
+/* Consulta que devuelve el historial de pedidos vendidos realizados por el usuario */
+
+const getAllPedidosUserVen= async(req, res) => {
+    const id = req.params.id;
+    let pedidos = req.pedidos;
+    pedidos = await pool.query("select * from pedidos inner join sucursal on pedidos.id_sucursal = sucursal.id_sucursal where pedidos.id_usuario = $1 and pedidos.estado_pedido = 'Vendido'", [id]);
+    res.status(200).json({
+        productos: pedidos.rows
+    });
+};
 
 /* Consulta para traer los pedidos que tiene una sucursal --> enviar al id_sucursal */
 
@@ -98,6 +108,7 @@ const updatePedidoEst = async (req, res) => {
 };
 
 module.exports = {
+    getAllPedidosUserVen,
     getAllPedidosUserPen,
     getAllPedidosPen,
     getAllPedidosVen,
