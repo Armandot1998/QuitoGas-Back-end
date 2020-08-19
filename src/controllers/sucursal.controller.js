@@ -2,6 +2,12 @@
 'use strict'
 const pool = require('../config/db')
 
+const getSucursalByUserId = async (req, res) => {
+    const id = req.params.id;
+    const sucursal = await pool.query('select * from sucursal where id_usuario = $1', [id]);
+    res.status(200).json(sucursal.rows);
+};
+
 const getSucursal = async(req, res) => {
     let sucursales = req.sucursales
     sucursales = await pool.query(`select usuario.id_usuario, usuario.nombre_usuario,
@@ -53,6 +59,7 @@ const updateSucursal = async (req, res) => {
 };
 
 module.exports = {
+getSucursalByUserId,
 getSucursal,
 getSucursalById,
 createSucursal,

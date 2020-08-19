@@ -6,11 +6,12 @@ const { Router } =  require('express')
 const router = Router()
  const {getSucursal,
         getSucursalById,
-        createSucursal,
+        createSucursal, getSucursalByUserId,
         updateSucursal,getListaUsuariosSucursal} = require('../controllers/sucursal.controller');
 
 
 //Rutas
+router.get('/infoSucursal/:id', getSucursalByUserId)
 router.get('/sucursales', getSucursal)
 router.get('/sucursal/:id', getSucursalById)
 router.post('/sucursal', createSucursal)
