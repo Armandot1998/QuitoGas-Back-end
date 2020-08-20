@@ -7,7 +7,7 @@ const pool = require('../config/db')
 const getAllPedidosUserPen= async(req, res) => {
     const id = req.params.id;
     let pedidos = req.pedidos;
-    pedidos = await pool.query("select * from pedidos inner join sucursal on pedidos.id_sucursal = sucursal.id_sucursal where pedidos.id_usuario = $1 and pedidos.estado_pedido = 'Pendiente'", [id]);
+    pedidos = await pool.query("select * from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario inner join producto on pedidos.id_producto = producto.id_producto where id_sucursal = $1 and pedidos.estado_pedido = 'Pendiente'", [id]);
     res.status(200).json({
         productos: pedidos.rows
     });
@@ -18,7 +18,7 @@ const getAllPedidosUserPen= async(req, res) => {
 const getAllPedidosUserVen= async(req, res) => {
     const id = req.params.id;
     let pedidos = req.pedidos;
-    pedidos = await pool.query("select * from pedidos inner join sucursal on pedidos.id_sucursal = sucursal.id_sucursal where pedidos.id_usuario = $1 and pedidos.estado_pedido = 'Vendido'", [id]);
+    pedidos = await pool.query("select * from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario inner join producto on pedidos.id_producto = producto.id_producto where id_sucursal = $1 and pedidos.estado_pedido = 'Vendido'", [id]);
     res.status(200).json({
         productos: pedidos.rows
     });
@@ -29,7 +29,7 @@ const getAllPedidosUserVen= async(req, res) => {
 const getAllPedidosPen = async(req, res) => {
     const id = req.params.id;
     let pedidos = req.pedidos;
-    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and estado_pedido = 'Pendiente'", [id]);
+    pedidos = await pool.query("select * from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario inner join producto on pedidos.id_producto = producto.id_producto where id_sucursal = $1 and pedidos.estado_pedido = 'Pendiente'", [id]);
     res.status(200).json({
         productos: pedidos.rows
     });
