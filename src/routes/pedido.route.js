@@ -4,11 +4,11 @@ const router = Router();
 // todas las rutas
 
 const { getAllPedidosPen, getAllPedidosVen, getUserPedidos, 
-    getUserPedidosPen, getUserPedidosVen, getAllPedidosUserPen,
+    getUserPedidosPen, getUserPedidosVen, getAllPedidosUserPen, getAllPedidosUserVen,
     createPedido, updatePedidoEst} = require('../controllers/pedidos.controller');
 
-
-router.get('/pedidosUserPen/:id', getAllPedidosUserPen);    
+router.get('/pedidosUserPen/:id', getAllPedidosUserPen); 
+router.get('/pedidosUserVen/:id', getAllPedidosUserVen);    
 router.get('/pedidosPen/:id', getAllPedidosPen);
 router.get('/pedidosVen/:id', getAllPedidosVen);
 router.get('/pedidosUsr/:id', getUserPedidos);
