@@ -5,8 +5,10 @@ const router = Router();
 
 const { getAllPedidosPen, getAllPedidosVen, getUserPedidos, 
     getUserPedidosPen, getUserPedidosVen, getAllPedidosUserPen, getAllPedidosUserVen,
-    createPedido, updatePedidoEst} = require('../controllers/pedidos.controller');
+    createPedido, updatePedidoEst, getAllUserPedidosPen, getAllUserPedidosVen} = require('../controllers/pedidos.controller');
 
+router.get('/UserpedidosPen/:id', getAllUserPedidosPen); 
+router.get('/UserpedidosVen/:id', getAllUserPedidosVen);     
 router.get('/pedidosUserPen/:id', getAllPedidosUserPen); 
 router.get('/pedidosUserVen/:id', getAllPedidosUserVen);    
 router.get('/pedidosPen/:id', getAllPedidosPen);

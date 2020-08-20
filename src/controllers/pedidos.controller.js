@@ -24,6 +24,28 @@ const getAllPedidosUserVen= async(req, res) => {
     });
 };
 
+/* Consulta que devuelve el historial de pedidos vendidos realizados por el usuario enviar el id_usuario como parametro */
+
+const getAllUserPedidosPen= async(req, res) => {
+    const id = req.params.id;
+    let pedidos = req.pedidos;
+    pedidos = await pool.query("select * from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario inner join producto on pedidos.id_producto = producto.id_producto where usuario.id_usuario = $1 and pedidos.estado_pedido = 'Pendiente'", [id]);
+    res.status(200).json({
+        productos: pedidos.rows
+    });
+};
+
+/* Consulta que devuelve el historial de pedidos vendidos realizados por el usuario enviar el id_usuario como parametro */
+
+const getAllUserPedidosVen= async(req, res) => {
+    const id = req.params.id;
+    let pedidos = req.pedidos;
+    pedidos = await pool.query("select * from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario inner join producto on pedidos.id_producto = producto.id_producto where usuario.id_usuario = $1 and pedidos.estado_pedido = 'Vendido'", [id]);
+    res.status(200).json({
+        productos: pedidos.rows
+    });
+};
+
 /* Consulta para traer los pedidos que tiene una sucursal --> enviar al id_sucursal */
 
 const getAllPedidosPen = async(req, res) => {
@@ -108,6 +130,8 @@ const updatePedidoEst = async (req, res) => {
 };
 
 module.exports = {
+    getAllUserPedidosPen,
+    getAllUserPedidosVen,
     getAllPedidosUserVen,
     getAllPedidosUserPen,
     getAllPedidosPen,
