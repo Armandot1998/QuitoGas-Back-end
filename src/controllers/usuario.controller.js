@@ -19,7 +19,10 @@ const getUsers = async(req, res) => {
 const getUserById = async (req, res) => {
     const id = req.params.id;
     const usuario = await pool.query('select * from usuario where id_usuario = $1', [id]);
-    res.status(200).json(usuario.rows);
+    if(usuario.rowCount > 0){
+        return res.json({ Usuario : usuario.rows[0]});
+    }
+    res.status(404).json({text: "El usuario no existe"});
 };
 
 const createUser = async(req, res) => {
@@ -43,7 +46,19 @@ const updateUser = async (req, res) => {
         auth: true
     })
 };
+/////////////////////////////////////
 
+const updateUsuario = async (req, res) => {
+    const id = req.params.id;
+    const { id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario } = req.body;
+    usuario = await pool.query('update usuario set id_rol = $1, nombre_usuario = $2, apellido_usuario = $3, cedula_usuario = $4, telefono_usuario = $5, direccion_usuario = $6, correo_usuario = $7, password_usuario = $8 where id_usuario = $9', [
+        id_rol, nombre_usuario, apellido_usuario, cedula_usuario, telefono_usuario, direccion_usuario, correo_usuario, password_usuario, id
+    ]);
+    res.status(200).json({
+        menssage: 'Usuario Actualizado',
+        auth: true
+    })
+};
 // Obtener los datos del usuario mediante el token generado apartir del login
 
 const infoUser = async (req, res, next) => {
@@ -84,5 +99,5 @@ const signinUser = async (req, res, next) => {
 module.exports = {
     getUsers, createUser,
     getUserById, updateUser,
-    infoUser, signinUser
+    infoUser, signinUser,updateUsuario
 }

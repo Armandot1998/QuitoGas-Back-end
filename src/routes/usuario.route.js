@@ -7,13 +7,14 @@ const verifyToken = require('../controllers/verifyToken');
 
 const { getUsers, createUser, 
     getUserById, updateUser, 
-    infoUser, signinUser} = require('../controllers/usuario.controller');
+    infoUser, signinUser, updateUsuario} = require('../controllers/usuario.controller');
 
 router.get('/users', getUsers);
-router.get('/users/:id', getUserById);
+router.get('/user/:id', getUserById);
 router.get('/profile',  verifyToken, infoUser );
 router.post('/user', createUser);
 router.put('/user', updateUser);
+router.put('/user/:id', updateUsuario);
 
 router.post('/signin', signinUser);
 
