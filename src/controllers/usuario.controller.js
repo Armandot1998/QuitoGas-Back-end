@@ -20,7 +20,7 @@ const getUserById = async (req, res) => {
     const id = req.params.id;
     const usuario = await pool.query('select * from usuario where id_usuario = $1', [id]);
     if(usuario.rowCount > 0){
-        return res.json(usuario.rows[0]);
+        return res.json({ Usuario : usuario.rows[0]});
     }
     res.status(404).json({text: "El usuario no existe"});
 };
