@@ -36,3 +36,11 @@ $stock_pedido$ LANGUAGE plpgsql;
 
 CREATE TRIGGER stock_trigger AFTER INSERT ON pedidos
 FOR EACH ROW EXECUTE PROCEDURE stock_pedido();
+
+
+/* AGREGAR LA UBICACION EN EL MAPA */
+
+alter table sucursal add column lat varchar(500)
+alter table sucursal add column long varchar(500)
+alter table pedidos add column lat varchar(500)
+alter table pedidos add column long varchar(500)

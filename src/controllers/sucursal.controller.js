@@ -14,7 +14,7 @@ const getSucursal = async(req, res) => {
     usuario.apellido_usuario,producto.nombre_producto,producto.id_producto,producto.precio_producto, usuario.cedula_usuario, usuario.telefono_usuario,
     usuario.direccion_usuario, usuario.correo_usuario, sucursal.id_sucursal,
     sucursal.nombre_sucursal, sucursal.direccion_sucursal, sucursal.telefono_sucursal,
-    sucursal.correo_sucursal, sucursal.stock_sucursal 
+    sucursal.correo_sucursal, sucursal.stock_sucursal, sucursal.lat, sucursal.long  
     from sucursal inner join usuario on usuario.id_usuario = sucursal.id_usuario
     inner join producto on sucursal.id_producto = producto.id_producto`);
     res.status(200).json({
@@ -32,15 +32,15 @@ const getListaUsuariosSucursal = async(req, res) => {
 
 const getSucursalById = async (req, res) => {
     const id = req.params.id;
-    const sucursal = await pool.query('select usuario.id_usuario, usuario.nombre_usuario, usuario.apellido_usuario, usuario.cedula_usuario, usuario.telefono_usuario, usuario.direccion_usuario, usuario.correo_usuario, sucursal.id_sucursal, sucursal.nombre_sucursal, sucursal.direccion_sucursal, sucursal.telefono_sucursal, sucursal.correo_sucursal, sucursal.stock_sucursal from usuario inner join sucursal on usuario.id_usuario = sucursal.id_usuario where sucursal.id_sucursal = $1', [id]);
+    const sucursal = await pool.query('select usuario.id_usuario, usuario.nombre_usuario, usuario.apellido_usuario, usuario.cedula_usuario, usuario.telefono_usuario, usuario.direccion_usuario, usuario.correo_usuario, sucursal.id_sucursal, sucursal.nombre_sucursal, sucursal.direccion_sucursal, sucursal.telefono_sucursal, sucursal.correo_sucursal, sucursal.stock_sucursal, sucursal.lat, sucursal.long from usuario inner join sucursal on usuario.id_usuario = sucursal.id_usuario where sucursal.id_sucursal = $1', [id]);
     res.status(200).json(sucursal.rows);
 };
 
 const createSucursal = async(req, res) => {
-    const {  id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal  } = req.body.sucursal;
+    const {  id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal, lat, long  } = req.body.sucursal;
      
-     sucursal = await pool.query('insert into sucursal ( id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal) values ($1, $2, $3, $4, $5, $6, $7)',
-     [ id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal]);
+     sucursal = await pool.query('insert into sucursal ( id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal, lat, long) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+     [ id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal, lat, long]);
      res.status(200).json({
         menssage: 'Se ha creado una sucursal'
     });

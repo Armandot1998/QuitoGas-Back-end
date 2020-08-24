@@ -62,7 +62,7 @@ const getAllPedidosPen = async(req, res) => {
 const getAllPedidosVen = async(req, res) => {
     const id = req.params.id;
     let pedidos = req.pedidos;
-    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and estado_pedido = 'Vendido'", [id]);
+    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total, pedidos.lat, pedidos.long from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and estado_pedido = 'Vendido'", [id]);
     res.status(200).json({
         productos: pedidos.rows
     });
@@ -73,7 +73,7 @@ const getUserPedidos = async(req, res) => {
     const id = req.params.id;
     const { id_usuario } = req.body;
     let pedidos = req.pedidos;
-    pedidos = await pool.query('select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and usuario.id_usuario = $2',
+    pedidos = await pool.query('select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total, pedidos.lat, pedidos.long from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and usuario.id_usuario = $2',
      [id, id_usuario]);
     res.status(200).json({
         productos: pedidos.rows
@@ -85,7 +85,7 @@ const getUserPedidosPen = async(req, res) => {
     const id = req.params.id;
     const { id_usuario } = req.body;
     let pedidos = req.pedidos;
-    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and usuario.id_usuario = $2 and estado_pedido ='Pendiente'",
+    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total, pedidos.lat, pedidos.long from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and usuario.id_usuario = $2 and estado_pedido ='Pendiente'",
      [id, id_usuario]);
     res.status(200).json({
         productos: pedidos.rows
@@ -97,7 +97,7 @@ const getUserPedidosVen = async(req, res) => {
     const id = req.params.id;
     const { id_usuario } = req.body;
     let pedidos = req.pedidos;
-    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and usuario.id_usuario = $2 and estado_pedido ='Vendido'",
+    pedidos = await pool.query("select pedidos.id_pedido, pedidos.cantidad_pedido, pedidos.estado_pedido, pedidos.fecha_pedido, pedidos.fecha_entrega_pedido, pedidos.total, pedidos.lat, pedidos.long from pedidos inner join usuario on pedidos.id_usuario = usuario.id_usuario where pedidos.id_sucursal = $1 and usuario.id_usuario = $2 and estado_pedido ='Vendido'",
      [id, id_usuario]);
     res.status(200).json({
         productos: pedidos.rows
@@ -109,10 +109,10 @@ const getUserPedidosVen = async(req, res) => {
 
 const createPedido = async(req, res) => {
 
-    const { id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido} = req.body;
+    const { id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido, lat, long} = req.body;
 
-     usuario = await pool.query("insert into pedidos (id_producto, id_usuario, id_sucursal, cantidad_pedido, estado_pedido, fecha_pedido, fecha_entrega_pedido) values ($1, $2, $3, $4, 'Pendiente', $5, $6)",
-     [ id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido]);
+     usuario = await pool.query("insert into pedidos (id_producto, id_usuario, id_sucursal, cantidad_pedido, estado_pedido, fecha_pedido, fecha_entrega_pedido, lat, long) values ($1, $2, $3, $4, 'Pendiente', $5, $6, $7, $8)",
+     [ id_producto, id_usuario, id_sucursal, cantidad_pedido, fecha_pedido, fecha_entrega_pedido, lat, long]);
      res.status(200).json({
         success: true,
         menssage: 'Se ha creado el pedido'
