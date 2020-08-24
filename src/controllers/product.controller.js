@@ -9,13 +9,6 @@ const getProducts = async(req, res) => {
     res.status(200).json(productos.rows);
 };
 
-const getPoints = async(req, res) => {
-    let points = req.productos;
-    points = await pool.query("select * from point");
-    res.status(200).json({
-        points: points.rows });
-};
-
 const getProductById = async (req, res) => {
     const id = req.params.id;
     const producto = await pool.query("select * from producto where id_producto = $1 and estado_producto = 'Activo'",
@@ -56,7 +49,6 @@ const deleteProduct = async (req, res) => {
 
 
 module.exports = {
-    getPoints,
     getProducts, getProductById,
     createProduct, updateProduct,
     deleteProduct

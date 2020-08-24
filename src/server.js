@@ -13,7 +13,7 @@ app.use(express.urlencoded({extended: false}))
 
 app.use(require('./routes/usuario.route'));
 app.use(require('./routes/sucursal.route'));
-app.use(require('./routes/product.route'));
+app.use(require('./routes/producto.route'));
 app.use(require('./routes/pedido.route'));
 app.use(require('./routes/role.route'));
 
