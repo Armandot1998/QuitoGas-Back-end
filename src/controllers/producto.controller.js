@@ -1,6 +1,6 @@
 ;
 'use strict'
-const pool = require('../config/db')
+const pool = require('../config/db')  
 
 const getProductos = async(req, res) => {
     let productos = req.productos
