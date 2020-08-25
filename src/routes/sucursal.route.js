@@ -15,7 +15,7 @@ router.get('/infoSucursal/:id', getSucursalByUserId)
 router.get('/sucursales', getSucursal)
 router.get('/sucursal/:id', getSucursalById)
 router.post('/sucursal', createSucursal)
-router.put('/sucursal', updateSucursal)
+router.put('/sucursal/:id', updateSucursal)
 router.get('/UsuSucursales', getListaUsuariosSucursal)
 
 
