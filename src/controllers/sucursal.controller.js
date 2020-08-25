@@ -45,10 +45,10 @@ const getSucursalById = async (req, res) => {
 };
 
 const createSucursal = async(req, res) => {
-    const {  id_usuario, id_producto, nombre_sucursal, telefono_sucursal, correo_sucursal, stock_sucursal, lat, long  } = req.body.sucursal;
+    const {  id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal, lat, long  } = req.body.sucursal;
      
-     sucursal = await pool.query('insert into sucursal ( id_usuario, id_producto, nombre_sucursal, telefono_sucursal, correo_sucursal, stock_sucursal, lat, long) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-     [ id_usuario, id_producto, nombre_sucursal, telefono_sucursal, correo_sucursal, stock_sucursal, lat, long]);
+     sucursal = await pool.query('insert into sucursal ( id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal, lat, long) values ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+     [ id_usuario, id_producto, nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal, stock_sucursal, lat, long]);
      res.status(200).json({
         menssage: 'Se ha creado una sucursal'
     });
@@ -56,9 +56,9 @@ const createSucursal = async(req, res) => {
 
 const updateSucursal = async (req, res) => {
     const id = req.params.id;
-    const { id_usuario, id_producto,nombre_sucursal, telefono_sucursal, correo_sucursal,stock_sucursal,lat, long } = req.body;
-    sucursal = await pool.query('update sucursal set id_usuario = $1,id_producto =$2,nombre_sucursal = $3, telefono_sucursal = $4,  correo_sucursal = $5, stock_sucursal =$6,lat = $7,long = $8 where id_sucursal = $9', [
-        id_usuario,id_producto,nombre_sucursal, telefono_sucursal, correo_sucursal,stock_sucursal,lat, long,id
+    const { id_usuario, id_producto,nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal,stock_sucursal,lat, long } = req.body;
+    sucursal = await pool.query('update sucursal set id_usuario = $1,id_producto =$2,nombre_sucursal = $3, telefono_sucursal = $4, direccion_sucursal = $5, correo_sucursal = $6, stock_sucursal =$7,lat = $8,long = $9 where id_sucursal = $10', [
+        id_usuario,id_producto,nombre_sucursal, telefono_sucursal, direccion_sucursal, correo_sucursal,stock_sucursal,lat, long,id
     ]);
     res.status(200).json({
         menssage: 'Sucursal Actualizada',
